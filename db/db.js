@@ -23,6 +23,12 @@
 // };
 
 
+
+
+
+// Load environment variables from the .env file
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 module.exports = () => {
@@ -33,7 +39,13 @@ module.exports = () => {
         useUnifiedTopology: true,
     };
 
-    const mongoUrl = "mongodb+srv://amanp114:UUr2tBfuGeTjHJxC@cluster0.tjlmotu.mongodb.net/";
+    // Use the environment variable instead of hardcoding the URL
+    const mongoUrl = process.env.MONGO_URI;  // Get the connection string from the environment variable
+
+    if (!mongoUrl) {
+        console.log("MongoDB URI is not defined in environment variables");
+        return;
+    }
 
     try {
         mongoose.connect(mongoUrl, connectionParams)
