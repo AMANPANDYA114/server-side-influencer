@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Brand = require("../models/brand");
+const Brand = require("../models/Brand");
 
 exports.isAuth = async (req, res, next) => {
   try {

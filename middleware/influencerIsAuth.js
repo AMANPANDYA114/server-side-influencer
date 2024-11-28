@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Influencer = require("../models/influencers");
+const Influencer = require("../models/Influencers");
 
 exports.isAuth = async (req, res, next) => {
   try {

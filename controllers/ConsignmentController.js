@@ -1,6 +1,6 @@
-const Brand = require("../models/brand");
-const Influencer = require("../models/influencers");
-const Consignment = require("../models/consignment");
+const Brand = require("../models/Brand");
+const Influencer = require("../models/Influencers");
+const Consignment = require("../models/Consignment");
 const mongoose = require("mongoose");
 const { response } = require("express");
 const { ObjectId } = mongoose.Schema.Types;

@@ -14,7 +14,7 @@ dotenv.config({ path: "./.env" });
 
 const connection = require("./db/db");
 
-const errorController = require('./controllers/error');
+const errorController = require('./controllers/Error.js');
 const logoutcontroller = require('./controllers/logoutcontroller');
 
 const adminRoutes = require('./routes/Admin.js');

@@ -1,7 +1,7 @@
-const Brand = require("../models/brand");
-const Consignment = require("../models/consignment");
-const Influencer = require("../models/influencers");
-const Campaign = require("../models/campaign");
+const Brand = require("../models/Brand");
+const Consignment = require("../models/Consignment");
+const Influencer = require("../models/Influencers");
+const Campaign = require("../models/Campaign");
 
 
 const nodemailer = require("nodemailer");
