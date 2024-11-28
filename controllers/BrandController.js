@@ -1,4 +1,4 @@
-const Brand = require("../models/Brand");
+const Brand = require("../models/brand");
 const Consignment = require("../models/Consignment");
 const Influencer = require("../models/Influencers");
 const Campaign = require("../models/Campaign");
