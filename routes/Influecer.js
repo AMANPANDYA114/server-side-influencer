@@ -4,8 +4,8 @@ const router = express.Router();
 const { influencerSignupdata, influencerlogin, getAllInfluencer, editProfiledisplay, updateProfile, influencerhome, getInfluencer
     , adrequired, adrequiredRemove, uploadImage,getConnectedinf
 } = require('../controllers/influencrController');
-const influencerIsAuth = require('../middleware/influencerIsAuth');
-const brandIsAuth = require('../middleware/brandIsAuth');
+const influencerIsAuth = require('../middleware/InfluencerIsAuth');
+const brandIsAuth = require('../middleware/BrandIsAuth');
 
 
 //==> signup POST

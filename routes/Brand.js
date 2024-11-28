@@ -117,10 +117,10 @@ const {
   createCampaign, 
   getAllCampaigns,
   applyToCampaign // Import the applyToCampaign function
-} = require('../controllers/brandController'); // All functions come from brandController
+} = require('../controllers/BrandController'); // All functions come from brandController
 
-const brandIsAuth = require('../middleware/brandIsAuth');
-const influencerIsAuth = require('../middleware/influencerIsAuth');
+const brandIsAuth = require('../middleware/BrandIsAuth');
+const influencerIsAuth = require('../middleware/InfluencerIsAuth');
 
 // Test route for checking if everything is set up
 router.get('/', (req, res, next) => {

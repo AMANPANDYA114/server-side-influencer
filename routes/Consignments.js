@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const brandIsAuth = require('../middleware/brandIsAuth');
-const influencerIsAuth = require('../middleware/influencerIsAuth');
+const brandIsAuth = require('../middleware/BrandIsAuth');
+const influencerIsAuth = require('../middleware/InfluencerIsAuth');
 
 const { createConsignment, getBrandRequest, acceptBrandReq, deleteBrandReq, getInfConsignment, getBrandPendingRequest,
     deleteBrandPendingRequest, getBrandConsignment, paymentupdate, getBrandCurrentConsignments,
