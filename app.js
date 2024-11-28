@@ -14,7 +14,7 @@ dotenv.config({ path: "./.env" });
 
 const connection = require("./db/db");
 
-const errorController = require('./controllers/Error.js');
+// const errorController = require('./controllers/Error.js');
 const logoutcontroller = require('./controllers/logoutcontroller');
 
 const adminRoutes = require('./routes/Admin.js');
@@ -61,7 +61,7 @@ app.get('/logout', (req, res) => {
 });
 
 // Default 404 page...
-app.use(errorController.error404);
+// app.use(errorController.error404);
 
 // Connect to database...
 connection();
