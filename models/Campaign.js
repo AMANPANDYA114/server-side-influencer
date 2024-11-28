@@ -25,7 +25,17 @@ const campaignSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-  }
+  },
+
+  followerRange: {
+    type: [Number],
+    default: [],
+  },
+  tags: {
+    type: [String],
+    default: [],
+  },
+  
 }, { timestamps: true });
 
 const Campaign = mongoose.model("Campaign", campaignSchema);
