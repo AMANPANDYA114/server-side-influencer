@@ -17,11 +17,11 @@ const connection = require("./db/db");
 const errorController = require('./controllers/error');
 const logoutcontroller = require('./controllers/logoutcontroller');
 
-const adminRoutes = require('./routes/admin.js');
+const adminRoutes = require('./routes/Admin.js');
 const brandRoutes = require('./routes/brand.js');
-const consignmentRoutes = require('./routes/consignments');
-const influencerRoutes = require('./routes/influecer');
-const managerRoutes = require('./routes/manager');
+const consignmentRoutes = require('./routes/Consignments');
+const influencerRoutes = require('./routes/Influecer');
+const managerRoutes = require('./routes/Manager');
 
 //models
 //  const Influencer=require('./models/influencers')
