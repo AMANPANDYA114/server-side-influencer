@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
+// Define your schema
 const shopSchema = new mongoose.Schema({
   uname: {
     type: String,
@@ -66,15 +67,12 @@ const shopSchema = new mongoose.Schema({
     url: {
       type: String
     }
-
   }],
   tokens: [{
     token: {
       type: String,
-      // required: true
     }
-  }
-  ],
+  }],
   description: {
     type: String,
   },
@@ -103,10 +101,10 @@ const shopSchema = new mongoose.Schema({
   }
 });
 
+// Add a method to generate auth tokens
 shopSchema.methods.generateAuthToken = async function () {
   try {
     const newtoken = jwt.sign({ _id: this._id }, "mynameisFenilsavaniandthisisoursdpproject");
-    // console.log(newtoken);
     this.tokens = this.tokens.concat({ token: newtoken });
     await this.save();
     return newtoken;
@@ -114,8 +112,9 @@ shopSchema.methods.generateAuthToken = async function () {
     console.log(err);
     return err;
   }
-}
+};
 
-const Shop = mongoose.model("Shop", shopSchema);
+// Check if the Shop model is already defined
+const Shop = mongoose.models.Shop || mongoose.model('Shop', shopSchema);
 
 module.exports = Shop;
