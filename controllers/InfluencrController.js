@@ -1,4 +1,4 @@
-const Influencer = require('../models/Influencers')
+const Influencer = require('../models/influencers')
 var id = '63c5825341af87b8073eaf87';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

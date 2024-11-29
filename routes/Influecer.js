@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { influencerSignupdata, influencerlogin, getAllInfluencer, editProfiledisplay, updateProfile, influencerhome, getInfluencer
     , adrequired, adrequiredRemove, uploadImage,getConnectedinf
-} = require('../controllers/influencrController');
+} = require('../controllers/InfluencrController');
 const influencerIsAuth = require('../middleware/InfluencerIsAuth');
 const brandIsAuth = require('../middleware/BrandIsAuth');
 
