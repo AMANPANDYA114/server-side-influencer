@@ -19,7 +19,6 @@ const logoutcontroller = require('./controllers/logoutcontroller');
 
 const adminRoutes = require('./routes/Admin.js');
 const brandRoutes = require('./routes/Brand.js');
-const consignmentRoutes = require('./routes/Consignments');
 const influencerRoutes = require('./routes/Influecer');
 const managerRoutes = require('./routes/Manager');
 
@@ -49,7 +48,6 @@ app.get('/', (req, res, next) => {
 app.use('/influencer', influencerRoutes)
 app.use('/admin', adminRoutes)
 app.use('/brand', brandRoutes)
-app.use('/consignment', consignmentRoutes)
 app.use('/manager', managerRoutes)
 app.get('/logout', (req, res) => {
     res.clearCookie("jwtoken");
