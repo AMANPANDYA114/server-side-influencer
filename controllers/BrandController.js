@@ -1,5 +1,9 @@
 const Brand = require("../models/brand");
-const Consignment = require("../models/Consignment");
+
+console.log('Consignment path: ', require.resolve('../models/Consignment'));
+const Consignment = require('../models/Consignment');
+
+// const Consignment = require("../models/Consignment");
 
 const Influencer = require("../models/Influencers");
 const Campaign = require("../models/Campaign");
