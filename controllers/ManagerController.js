@@ -1,6 +1,6 @@
-const Brand = require('../models/Brand')
-const Influencer = require('../models/Influencers')
-const Manager = require('../models/Manager')
+const Brand = require('../models/brand')
+const Influencer = require('../models/influencers')
+const Manager = require('../models/manager')
 
 exports.gethompage = (req, res) => {
     res.status(200).json({ success: true, message: "inside home page" })
