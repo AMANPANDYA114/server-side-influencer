@@ -109,13 +109,13 @@ app.use(bodyparser.json());
 // Configure multer to store uploaded files in the "uploads" directory
 app.use(multer({ dest: uploadDir }).single('profile'));  // Change to "uploads" directory
 
-// Enable CORS for the front-end running on localhost:3000
-const corsOptions = {
-  origin: 'http://localhost:3000',  
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  
-  credentials: true,  
-};
 
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost:3001'],  // Allow both localhost:3000 and localhost:3001
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow only certain methods
+    credentials: true,  // Allow credentials like cookies, authorization headers
+  };
+  
 app.use(cors(corsOptions));  
 
 app.get('/', (req, res, next) => {
