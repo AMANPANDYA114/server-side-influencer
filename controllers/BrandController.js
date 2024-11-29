@@ -5,7 +5,7 @@ const Consignment = require('../models/consignment');
 
 // const Consignment = require("../models/Consignment");
 
-const Influencer = require("../models/Influencers");
+const Influencer = require("../models/influencers");
 const Campaign = require("../models/Campaign");
 
 
