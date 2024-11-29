@@ -3,7 +3,7 @@ var id = '63c5825341af87b8073eaf87';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { response } = require('express');
-const Consignment = require('../models/Consignment');
+const Consignment = require('../models/consignment');
 
 
 
