@@ -5,7 +5,7 @@
 
 const Brand = require("../models/brand");  // Ensure the correct casing of the file
 const Influencer = require("../models/Influencers");
-const Consignment = require("../models/Consignment");
+const Consignment = require("../models/consignment");
 const mongoose = require("mongoose");
 const { response } = require("express");
 const { ObjectId } = mongoose.Schema.Types;

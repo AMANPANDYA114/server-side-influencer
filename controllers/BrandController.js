@@ -1,7 +1,7 @@
 const Brand = require("../models/brand");
 
-console.log('Consignment path: ', require.resolve('../models/Consignment'));
-const Consignment = require('../models/Consignment');
+console.log('Consignment path: ', require.resolve('../models/consignment'));
+const Consignment = require('../models/consignment');
 
 // const Consignment = require("../models/Consignment");
 
