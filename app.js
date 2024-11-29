@@ -109,13 +109,13 @@ app.use(bodyparser.json());
 // Configure multer to store uploaded files in the "uploads" directory
 app.use(multer({ dest: uploadDir }).single('profile'));  // Change to "uploads" directory
 
-
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:3001'],  // Allow both localhost:3000 and localhost:3001
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://influencer-marketing-fe.vercel.app'],  // Allow Vercel frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow only certain methods
     credentials: true,  // Allow credentials like cookies, authorization headers
-  };
-  
+};
+
+
 app.use(cors(corsOptions));  
 
 app.get('/', (req, res, next) => {
