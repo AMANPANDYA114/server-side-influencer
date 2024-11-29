@@ -2,8 +2,8 @@ const express= require('express');
 
 const router=express.Router();
 
-const ManagerController=require('../controllers/managerController');
-const managerIsAuth=require('../middleware/ManagerIsAuth');
+const ManagerController=require('../controllers/ManagerController');
+const managerIsAuth=require('../middleware/managerIsAuth');
 
 router.post('/signup',ManagerController.managersignup)
 //get unvalide brand and influencer GET

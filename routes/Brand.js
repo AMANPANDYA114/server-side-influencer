@@ -91,8 +91,8 @@ const {
 
 const { deleteCampaign } = require('../controllers/BrandController');
 // Import authentication middleware
-const brandIsAuth = require('../middleware/BrandIsAuth');
-const influencerIsAuth = require('../middleware/InfluencerIsAuth');
+const brandIsAuth = require('../middleware/brandIsAuth');
+const influencerIsAuth = require('../middleware/influencerIsAuth');
 
 // Test route for checking if everything is set up
 router.get('/', (req, res) => {
