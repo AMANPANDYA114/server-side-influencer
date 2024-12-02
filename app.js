@@ -73,6 +73,10 @@
 
 
 
+
+
+
+
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');  
@@ -110,7 +114,7 @@ app.use(bodyparser.json());
 app.use(multer({ dest: uploadDir }).single('profile'));  // Change to "uploads" directory
 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://influencer-marketing-fe.vercel.app'],  // Allow Vercel frontend
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://influencer-marketing-hub.vercel.app'],  // Allow Vercel frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow only certain methods
     credentials: true,  // Allow credentials like cookies, authorization headers
 };
@@ -146,5 +150,3 @@ const PORT = 8000;
 app.listen(PORT, () => {
     console.log("Running on server " + PORT);
 });
-
-
