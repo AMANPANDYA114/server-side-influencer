@@ -316,7 +316,7 @@ exports.deleteCampaign = async (req, res) => {
 
     if (!campaign) {
       // If no campaign is found with the given brandId and campaignId, return 404
-      return res.status(404).json({ message: 'Campaign not found for this brand' });
+      return res.status(404).json({ message: 'Campaign already removed' });
     }
 
     // Attempting to delete the campaign by its ID
