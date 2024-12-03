@@ -15,7 +15,10 @@ router.post("/signup", influencerSignupdata);
 router.post("/influencerlogin", influencerlogin);
 
 //=>get Logged influencer GET
-router.get("/getInfluencer", influencerIsAuth.isAuth, getInfluencer)
+// router.get("/getInfluencer", influencerIsAuth.isAuth, getInfluencer)
+
+
+router.get("/getInfluencer/:influencerId", getInfluencer);
 
 //==> getting influencer data GET
 router.get("/getAllInfluencer", brandIsAuth.isAuth, getAllInfluencer);

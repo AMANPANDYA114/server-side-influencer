@@ -109,7 +109,9 @@ router.delete('/deleteAllCampaigns', deleteAllCampaigns); // Route to delete all
 router.post('/brandlogin', brandLogin);
 
 //==> get brand data GET (requires brand authentication)
-router.get('/getBrandData', brandIsAuth.isAuth, getBrandData);
+// router.get('/getBrandData', brandIsAuth.isAuth, getBrandData);
+// Example route to get brand data based on brandId from URL params
+router.get('/getBrandData/:brandId', getBrandData);
 
 //==> upload logo PUT (requires brand authentication)
 router.put('/logoupload', brandIsAuth.isAuth, logoUpload);

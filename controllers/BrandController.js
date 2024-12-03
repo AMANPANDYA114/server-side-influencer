@@ -818,10 +818,36 @@ exports.brandLogin = async (req, res) => {
 };
 
 
+// exports.getBrandData = async (req, res) => {
+//   const brand = req.rootUser;
+//   res.json({ data: brand });
+// };
+
+
 exports.getBrandData = async (req, res) => {
-  const brand = req.rootUser;
-  res.json({ data: brand });
+  try {
+    // Retrieve the brandId from the URL parameters
+    const { brandId } = req.params;
+
+    // Check if brandId is provided
+    if (!brandId) {
+      return res.status(400).json({ error: "Brand ID is required." });
+    }
+
+    // Retrieve the brand data using the brandId from the params
+    const brand = await Brand.findById(brandId);
+
+    if (!brand) {
+      return res.status(404).json({ error: "Brand not found." });
+    }
+
+    res.json({ data: brand });
+  } catch (err) {
+    console.error("Error fetching brand data:", err);
+    return res.status(500).json({ error: "Internal server error." });
+  }
 };
+
 
 exports.updateProfile = async (req, res) => {
   const id = req.userId

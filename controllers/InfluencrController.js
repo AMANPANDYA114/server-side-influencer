@@ -107,13 +107,30 @@ exports.getAllInfluencer = async (req, res) => {
 
 }
 
+
+
 exports.getInfluencer = async (req, res) => {
-    const rootUser = req.rootUser
-    if (!rootUser) return res.status(422).json({ error: "Please login first", success: false });
-    res.status(200).json({ success: true, data: rootUser })
-
-}
-
+    try {
+      // Extract influencerId from URL parameters
+      const { influencerId } = req.params;
+  
+      // Find the influencer by ID
+      const influencer = await Influencer.findById(influencerId);
+  
+      if (!influencer) {
+        return res.status(404).json({ error: "Influencer not found." });
+      }
+  
+      res.status(200).json({
+        success: true,
+        data: influencer,  // Send the influencer data
+      });
+    } catch (err) {
+      console.error("Error fetching influencer:", err);
+      return res.status(500).json({ error: "Internal server error." });
+    }
+  };
+  
 exports.editProfiledisplay = (req, res) => {
     // res.send("hello from editProfiledisplay");
     // Influencer.findById(id)
@@ -157,43 +174,48 @@ exports.uploadImage = async (req, res) => {
 }
 
 
+
+
 exports.influencerlogin = async (req, res) => {
     const { email, password } = req.body;
-
+  
     // Check if email and password are provided
     if (!email || !password) {
-        return res.status(422).json({ error: "Please add email or password" });
-    } else {
-        // Find user by email and password
-        const userLogin = await Influencer.findOne({ email: email, password: password });
-
-        // If user is not found
-        if (!userLogin) {
-            return res.status(422).json({ error: "User not found", success: false });
-        }
-
-        // Generate authentication token
-        var token = await userLogin.generateAuthToken();
-        const { fname } = userLogin;
-
-        // If token is generated
-        if (token) {
-            res.cookie('jwtoken', token, {
-                expires: new Date(Date.now() + 2589200000),
-                httpOnly: true
-            })
-            return res.status(200).json({
-                success: true, message: "You are logged in",
-                token, user: { fname }, type: "Influencer"
-            });
-        } else {
-            // If token generation failed
-            return res.status(422).json({ error: "Something went wrong! Please try again later.", success: false });
-        }
+      return res.status(422).json({ error: "Please add email or password" });
     }
-};
-
-
+  
+    try {
+      // Find user by email and password
+      const userLogin = await Influencer.findOne({ email: email, password: password });
+  
+      // If user is not found
+      if (!userLogin) {
+        return res.status(422).json({ error: "User not found", success: false });
+      }
+  
+      // Generate authentication token
+      const token = await userLogin.generateAuthToken();
+  
+      // Send response with influencer data including influencerId
+      return res.status(200).json({
+        success: true,
+        message: "You are logged in",
+        token,
+        user: {
+          fname: userLogin.fname,
+          influencerId: userLogin._id,  // Include influencerId in the response
+        },
+        type: "Influencer",
+      });
+    } catch (err) {
+      console.error("Error during login:", err);
+      return res.status(500).json({
+        error: "Something went wrong! Please try again later.",
+        success: false,
+      });
+    }
+  };
+  
 
 // exports.influencerlogin = async (req, res) => {
 //     const { email, password } = req.body;
