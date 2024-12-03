@@ -84,7 +84,7 @@ const {
   createCampaign, 
   getAllCampaigns,
   getMyCampaigns,
-  applyToCampaign ,
+  applyToCampaign , deleteAllCampaigns
 
 } = require('../controllers/BrandController'); // Ensure this import is correct
 
@@ -104,7 +104,7 @@ router.post('/signup', brandSignUpData);
 
 //==>> displaying all brands (requires influencer authentication)
 router.get('/getAllbrand', influencerIsAuth.isAuth, brandhome);
-
+router.delete('/deleteAllCampaigns', deleteAllCampaigns); // Route to delete all campaigns
 //==> brand login POST
 router.post('/brandlogin', brandLogin);
 
@@ -115,8 +115,9 @@ router.get('/getBrandData', brandIsAuth.isAuth, getBrandData);
 router.put('/logoupload', brandIsAuth.isAuth, logoUpload);
 
 //==> upload brand images PUT (requires brand authentication)
-router.put('/imageupload', brandIsAuth.isAuth, imageUpload); // Fixed typo here
+// router.put('/imageupload', brandIsAuth.isAuth, imageUpload); // Fixed typo here
 
+router.put('/:brandId/imageupload', imageUpload);
 //==> update brand profile PUT (requires brand authentication)
 router.put('/updateprofile', brandIsAuth.isAuth, updateProfile);
 

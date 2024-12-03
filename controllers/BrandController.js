@@ -187,35 +187,184 @@ exports.applyToCampaign = async (req, res) => {
 
 
 
-exports.createCampaign = async (req, res) => {
-  // Get the brandId from the URL params
-  const { brandId } = req.params;
+// exports.createCampaign = async (req, res) => {
+//   // Get the brandId from the URL params
+//   const { brandId } = req.params;
 
-  // Destructure other fields from the request body
+//   // Destructure other fields from the request body
+//   const { brandName, campaignType, startDate, endDate, budget, description, followerRange, tags } = req.body;
+
+//   // Log the incoming request data to track what the user is submitting (excluding brandId from the body)
+//   console.log("Received data:", req.body);
+//   console.log("Brand ID from params:", brandId); // Log the brandId from URL
+
+//   // Check if all required fields are provided (without the brandId in the body)
+//   if (!brandId || !brandName || !campaignType || !startDate || !endDate || !budget || !description || !followerRange || !tags) {
+//     console.error("Missing required fields"); // Log missing fields
+//     return res.status(422).json({ error: "Please fill all the fields" });
+//   }
+
+//   // Validate followerRange
+//   if (!Array.isArray(followerRange) || followerRange.length !== 2 || followerRange[0] > followerRange[1]) {
+//     return res.status(400).json({ error: "Invalid followerRange. It should be an array with two numbers: [min, max]" });
+//   }
+
+//   // Validate tags
+//   if (!Array.isArray(tags) || tags.length === 0) {
+//     return res.status(400).json({ error: "Tags should be an array with at least one element." });
+//   }
+
+//   try {
+//     // Create a new campaign instance using data from body and the brandId from URL params
+//     const campaign = new Campaign({
+//       brandName,
+//       campaignType,
+//       startDate,
+//       endDate,
+//       budget,
+//       description,
+//       followerRange,
+//       tags,
+//       brandId, // Use the brandId from the URL params
+//     });
+
+//     // Save the campaign to the database
+//     await campaign.save();
+
+//     // Log success message and campaign data
+//     console.log("Campaign created successfully:", {
+//       brandName: campaign.brandName,
+//       campaignType: campaign.campaignType,
+//       startDate: campaign.startDate,
+//       endDate: campaign.endDate,
+//       budget: campaign.budget,
+//       description: campaign.description,
+//       followerRange: campaign.followerRange,  // Log the follower range
+//       tags: campaign.tags,  // Log the tags
+//       _id: campaign._id
+//     });
+
+//     // Respond with success
+//     return res.status(200).json({
+//       success: true,
+//       message: "Campaign created successfully",
+//       data: {
+//         brandName: campaign.brandName,
+//         campaignType: campaign.campaignType,
+//         startDate: campaign.startDate,
+//         endDate: campaign.endDate,
+//         budget: campaign.budget,
+//         description: campaign.description,
+//         followerRange: campaign.followerRange,
+//         tags: campaign.tags,
+//         _id: campaign._id,
+//         createdAt: campaign.createdAt,
+//         updatedAt: campaign.updatedAt
+//       },
+//     });
+//   } catch (err) {
+//     // Log the error to track the exact issue
+//     console.error("Error occurred during campaign creation:", err);
+
+//     // Respond with a generic error message for server-side issues
+//     return res.status(500).json({
+//       error: "Something went wrong, please try again later",
+//     });
+//   }
+// };
+
+
+
+// exports.createCampaign = async (req, res) => {
+//   // Get the brandId from the URL params
+//   const { brandId } = req.params;
+
+//   // Destructure other fields from the request body
+//   const { brandName, campaignType, startDate, endDate, budget, description, followerRange, tags } = req.body;
+
+//   // Log the incoming request data to track what the user is submitting
+//   console.log("Received data:", req.body);
+//   console.log("Brand ID from params:", brandId); // Log the brandId from URL
+
+//   // Check if all required fields are provided
+//   if (!brandId || !brandName || !campaignType || !startDate || !endDate || !budget || !description || !followerRange || !tags) {
+//     console.error("Missing required fields");
+//     return res.status(422).json({ error: "Please fill all the fields" });
+//   }
+
+//   // Validate followerRange
+//   if (!Array.isArray(followerRange) || followerRange.length !== 2 || followerRange[0] > followerRange[1]) {
+//     return res.status(400).json({ error: "Invalid followerRange. It should be an array with two numbers: [min, max]" });
+//   }
+
+//   // Validate tags
+//   if (!Array.isArray(tags) || tags.length === 0) {
+//     return res.status(400).json({ error: "Tags should be an array with at least one element." });
+//   }
+
+//   try {
+//     // Create a new campaign instance using data from body and the brandId from URL params
+//     const campaign = new Campaign({
+//       brandName,
+//       campaignType,
+//       startDate,
+//       endDate,
+//       budget,
+//       description,
+//       followerRange,
+//       tags,
+//       brandId, // Use the brandId from the URL params
+//     });
+
+//     // Save the campaign to the database
+//     await campaign.save();
+
+//     // Log success message and campaign data
+//     console.log("Campaign created successfully:", campaign);
+
+//     // Respond with success and include the brandId in the response
+//     return res.status(200).json({
+//       success: true,
+//       message: "Campaign created successfully",
+//       data: {
+//         brandName: campaign.brandName,
+//         campaignType: campaign.campaignType,
+//         startDate: campaign.startDate,
+//         endDate: campaign.endDate,
+//         budget: campaign.budget,
+//         description: campaign.description,
+//         followerRange: campaign.followerRange,
+//         tags: campaign.tags,
+//         brandId: campaign.brandId,  // Include the brandId here
+//         _id: campaign._id,
+//         createdAt: campaign.createdAt,
+//         updatedAt: campaign.updatedAt
+//       },
+//     });
+//   } catch (err) {
+//     console.error("Error occurred during campaign creation:", err);
+//     return res.status(500).json({
+//       error: "Something went wrong, please try again later",
+//     });
+//   }
+// };
+
+
+exports.createCampaign = async (req, res) => {
+  const { brandId } = req.params; // get the brandId from the URL params
   const { brandName, campaignType, startDate, endDate, budget, description, followerRange, tags } = req.body;
 
-  // Log the incoming request data to track what the user is submitting (excluding brandId from the body)
+  // Log the incoming request data
   console.log("Received data:", req.body);
-  console.log("Brand ID from params:", brandId); // Log the brandId from URL
+  console.log("Brand ID from params:", brandId);
 
-  // Check if all required fields are provided (without the brandId in the body)
   if (!brandId || !brandName || !campaignType || !startDate || !endDate || !budget || !description || !followerRange || !tags) {
-    console.error("Missing required fields"); // Log missing fields
+    console.error("Missing required fields");
     return res.status(422).json({ error: "Please fill all the fields" });
   }
 
-  // Validate followerRange
-  if (!Array.isArray(followerRange) || followerRange.length !== 2 || followerRange[0] > followerRange[1]) {
-    return res.status(400).json({ error: "Invalid followerRange. It should be an array with two numbers: [min, max]" });
-  }
-
-  // Validate tags
-  if (!Array.isArray(tags) || tags.length === 0) {
-    return res.status(400).json({ error: "Tags should be an array with at least one element." });
-  }
-
   try {
-    // Create a new campaign instance using data from body and the brandId from URL params
+    // Create a new campaign instance
     const campaign = new Campaign({
       brandName,
       campaignType,
@@ -225,48 +374,20 @@ exports.createCampaign = async (req, res) => {
       description,
       followerRange,
       tags,
-      brandId, // Use the brandId from the URL params
+      brandId, // Link the campaign to the brandId
     });
 
     // Save the campaign to the database
     await campaign.save();
 
-    // Log success message and campaign data
-    console.log("Campaign created successfully:", {
-      brandName: campaign.brandName,
-      campaignType: campaign.campaignType,
-      startDate: campaign.startDate,
-      endDate: campaign.endDate,
-      budget: campaign.budget,
-      description: campaign.description,
-      followerRange: campaign.followerRange,  // Log the follower range
-      tags: campaign.tags,  // Log the tags
-      _id: campaign._id
-    });
-
-    // Respond with success
+    // Return success response
     return res.status(200).json({
       success: true,
       message: "Campaign created successfully",
-      data: {
-        brandName: campaign.brandName,
-        campaignType: campaign.campaignType,
-        startDate: campaign.startDate,
-        endDate: campaign.endDate,
-        budget: campaign.budget,
-        description: campaign.description,
-        followerRange: campaign.followerRange,
-        tags: campaign.tags,
-        _id: campaign._id,
-        createdAt: campaign.createdAt,
-        updatedAt: campaign.updatedAt
-      },
+      data: campaign,
     });
   } catch (err) {
-    // Log the error to track the exact issue
     console.error("Error occurred during campaign creation:", err);
-
-    // Respond with a generic error message for server-side issues
     return res.status(500).json({
       error: "Something went wrong, please try again later",
     });
@@ -275,27 +396,61 @@ exports.createCampaign = async (req, res) => {
 
 
 
+// exports.getMyCampaigns = async (req, res) => {
+//   // Retrieve brandId from route parameters
+//   const brandId = req.params.brandId; 
+
+//   console.log("Brand ID:", brandId);  // Log the brandId
+
+//   try {
+//     // Fetch the campaigns that belong to the logged-in brand
+//     const campaigns = await Campaign.find({ brandId });
+
+//     if (!campaigns || campaigns.length === 0) {
+//       return res.status(404).json({
+//         error: "No campaigns found for this brand",
+//       });
+//     }
+
+//     // Return the campaigns in the response
+//     return res.status(200).json({
+//       success: true,
+//       message: "Campaigns fetched successfully",
+//       data: campaigns,
+//     });
+//   } catch (err) {
+//     console.error("Error fetching campaigns:", err);
+//     return res.status(500).json({
+//       error: "Something went wrong, please try again later",
+//     });
+//   }
+// };
+
 exports.getMyCampaigns = async (req, res) => {
   // Retrieve brandId from route parameters
-  const brandId = req.params.brandId; 
+  const brandId = req.params.brandId;
 
-  console.log("Brand ID:", brandId);  // Log the brandId
+  console.log("Brand ID:", brandId);  // Log the brandId for debugging
 
   try {
     // Fetch the campaigns that belong to the logged-in brand
     const campaigns = await Campaign.find({ brandId });
 
+    // Ensure campaigns exist for the brand
     if (!campaigns || campaigns.length === 0) {
       return res.status(404).json({
         error: "No campaigns found for this brand",
       });
     }
 
-    // Return the campaigns in the response
+    // Return the campaigns along with the brandId in the response
     return res.status(200).json({
       success: true,
       message: "Campaigns fetched successfully",
-      data: campaigns,
+      data: campaigns.map(campaign => ({
+        ...campaign.toObject(),  // Convert the campaign to a plain object
+        brandId: campaign.brandId, // Include the brandId in the response
+      })),
     });
   } catch (err) {
     console.error("Error fetching campaigns:", err);
@@ -304,6 +459,7 @@ exports.getMyCampaigns = async (req, res) => {
     });
   }
 };
+
 
 
 
@@ -358,6 +514,33 @@ exports.getAllCampaigns = async (req, res) => {
 };
 
 
+exports.deleteAllCampaigns = async (req, res) => {
+  try {
+    // Delete all campaigns from the collection
+    const result = await Campaign.deleteMany({});
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No campaigns to delete",
+      });
+    }
+
+    // Return success response after deletion
+    return res.status(200).json({
+      success: true,
+      message: `${result.deletedCount} campaigns deleted successfully`,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      error: "Something went wrong, please try again later",
+    });
+  }
+};
+
+
+
 exports.brandSignUpData = async (req, res) => {
   const {
     uname,
@@ -373,6 +556,7 @@ exports.brandSignUpData = async (req, res) => {
     password,
   } = req.body;
 
+  // Check if all fields are provided
   if (
     !email ||
     !password ||
@@ -385,22 +569,26 @@ exports.brandSignUpData = async (req, res) => {
   ) {
     return res.status(422).json({ error: "Please fill all the fields" });
   }
-  try {
 
+  try {
+    // Check if the email already exists in the database
     const data = await Brand.findOne({ email: email });
     if (data) {
       return res.status(422).json({ error: "Email already exists", success: false });
     }
+
+    // Create new brand document
     const brand = new Brand(req.body);
-    brand.save()
-    // console.log(brand)
+    await brand.save();
+
+    // Respond with success message
     return res.status(200).json({ success: true, message: "Your data is under verification" });
-
   } catch (err) {
-    return res.status(422).json({ error: "Something went wronge!! try later!!", success: false });
-
-  };
+    // Catch any errors
+    return res.status(422).json({ error: "Something went wrong!! Try later!!", success: false });
+  }
 };
+
 
 exports.brandhome = async (req, res) => {
   const page = req.query.page
@@ -497,8 +685,71 @@ exports.brandhome = async (req, res) => {
 
 
 
+// exports.brandLogin = async (req, res) => {
+//   const { email, password } = req.body;
+//   if (!email || !password) {
+//     return res.status(422).json({ error: "Please add email or password" });
+//   } else {
+//     try {
+//       const userLogin = await Brand.findOne({ email: email, password: password });
+
+//       // If no user is found
+//       if (!userLogin) {
+//         return res.status(422).json({ error: "User not found", success: false });
+//       } else if (userLogin.valid === 0) {
+//         return res.status(425).json({
+//           error: "Verification under process, You can't proceed.",
+//           success: false,
+//         });
+//       } else {
+//         // Log the brand ID here
+//         console.log("Brand ID:", userLogin._id);
+
+//         // Generate the token for the user
+//         const token = await userLogin.generateAuthToken();
+//         const { fname } = userLogin;
+
+//         // If the token is generated, set the cookie and return a success response
+//         if (token) {
+//           res.cookie("jwtoken", token, {
+//             expires: new Date(Date.now() + 2589200000),
+//             httpOnly: true,
+//           });
+//           return res.status(200).json({
+//             success: true,
+//             message: "You are logged in",
+//             token,
+//             user: { fname },
+//             brandId: userLogin._id,  // Include brandId in the response
+//             type: "Influencer",
+//           });
+//         } else {
+//           return res.status(422).json({
+//             error: "Something went wrong! Try later.",
+//             success: false,
+//           });
+//         }
+//       }
+//     } catch (err) {
+//       console.error("Error during login:", err);
+//       return res.status(500).json({
+//         error: "Internal server error, please try again later.",
+//         success: false,
+//       });
+//     }
+//   }
+// };
+
+
+
+
 exports.brandLogin = async (req, res) => {
   const { email, password } = req.body;
+
+  // Log the email and password for debugging purposes (Warning: Do not do this in production!)
+  console.log("Received email:", email);
+  console.log("Received password:", password); // Caution: Avoid logging passwords in production!
+
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
   } else {
@@ -507,8 +758,10 @@ exports.brandLogin = async (req, res) => {
 
       // If no user is found
       if (!userLogin) {
+        console.log("User not found for email:", email);  // Log if user is not found
         return res.status(422).json({ error: "User not found", success: false });
       } else if (userLogin.valid === 0) {
+        console.log("User verification under process for email:", email);  // Log if verification is under process
         return res.status(425).json({
           error: "Verification under process, You can't proceed.",
           success: false,
@@ -527,15 +780,27 @@ exports.brandLogin = async (req, res) => {
             expires: new Date(Date.now() + 2589200000),
             httpOnly: true,
           });
+
+          // Log the response details
+          console.log("Login successful. Sending response...");
+          console.log({
+            message: "You are logged in",
+            token,
+            user: { fname },
+            brandId: userLogin._id,
+            type: "Brand",
+          });
+
           return res.status(200).json({
             success: true,
             message: "You are logged in",
             token,
             user: { fname },
             brandId: userLogin._id,  // Include brandId in the response
-            type: "Influencer",
+            type: "Brand",
           });
         } else {
+          console.log("Token generation failed for user:", email);  // Log if token generation fails
           return res.status(422).json({
             error: "Something went wrong! Try later.",
             success: false,
@@ -551,6 +816,7 @@ exports.brandLogin = async (req, res) => {
     }
   }
 };
+
 
 exports.getBrandData = async (req, res) => {
   const brand = req.rootUser;
@@ -590,19 +856,49 @@ exports.logoUpload = async (req, res) => {
     return res.status(200).json({ message: "Logo updated successfully!", success: true, data: brand });
   }
 }
+
+// exports.imageUpload = async (req, res) => {
+//   const id = req.userId
+//   // console.log(req.body);
+//   const image = req.body.image
+//   const brand = await Brand.findByIdAndUpdate(id, { $push: { images: { url: image } } }, { new: true }).select("-tokens")
+//   // console.log("hello");
+//   // console.log(brand);
+//   if (!brand) {
+//     return res.status(422).json({ message: "Image not updated!", success: false, data: brand });
+//   } else {
+//     return res.status(200).json({ message: "Image updated successfully!", success: true, data: brand });
+//   }
+// }
+
+
+
+
 exports.imageUpload = async (req, res) => {
-  const id = req.userId
-  // console.log(req.body);
-  const image = req.body.image
-  const brand = await Brand.findByIdAndUpdate(id, { $push: { images: { url: image } } }, { new: true }).select("-tokens")
-  // console.log("hello");
-  // console.log(brand);
-  if (!brand) {
-    return res.status(422).json({ message: "Image not updated!", success: false, data: brand });
-  } else {
-    return res.status(200).json({ message: "Image updated successfully!", success: true, data: brand });
+  const { brandId } = req.params; // Extract brandId from params
+  const { image } = req.body; // Extract image from request body
+
+  try {
+    // Find the brand by its brandId and update the images array
+    const brand = await Brand.findByIdAndUpdate(
+      brandId,  // Use brandId from params
+      { $push: { images: { url: image } } }, // Push the image URL to the images array
+      { new: true } // Return the updated brand object
+    ).select("-tokens");  // Exclude the 'tokens' field from the response
+
+    // If the brand is not found, send a failure response
+    if (!brand) {
+      return res.status(422).json({ message: "Image not updated!", success: false, data: null });
+    } else {
+      // Send a success response with the updated brand data
+      return res.status(200).json({ message: "Image updated successfully!", success: true, data: brand });
+    }
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error", success: false });
   }
-}
+};
 
 exports.getConnectedbrand=async(req,res)=>{
   // console.log(req.body);
